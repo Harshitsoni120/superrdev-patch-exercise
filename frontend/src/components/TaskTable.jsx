@@ -23,20 +23,25 @@ export default function TaskTable({ tasks, loading, error }) {
         </tr>
       </thead>
       <tbody>
-        {tasks.map((task) => (
-          <tr key={task.id}>
-            <td>{task.id}</td>
-            <td>
-              <div className="task-title">{task.title}</div>
-              <div className="task-desc">{task.description}</div>
-            </td>
-            <td>
-              <span className={`status-badge ${task.status.toLowerCase()}`}>{task.status}</span>
-            </td>
-            <td>{task.priority}</td>
-            <td>{task.assignee || '\u2014'}</td>
-          </tr>
-        ))}
+        {tasks.map((task) => {
+          const statusText = task.status || 'UNKNOWN';
+          const statusClass = statusText.toLowerCase();
+
+          return (
+            <tr key={task.id}>
+              <td>{task.id}</td>
+              <td>
+                <div className="task-title">{task.title}</div>
+                <div className="task-desc">{task.description}</div>
+              </td>
+              <td>
+                <span className={`status-badge ${statusClass}`}>{statusText}</span>
+              </td>
+              <td>{task.priority || '\u2014'}</td>
+              <td>{task.assignee || '\u2014'}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
